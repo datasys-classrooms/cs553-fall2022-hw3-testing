@@ -102,7 +102,7 @@ TEST2()
 
 TEST3()
 {
-    MSG="1. Test single precision 1000x1000 matrix multiplication with 8 threads ...           "
+    MSG="3. Test single precision 1000x1000 matrix multiplication with 8 threads ...           "
     if [ ! -f cpubench ]
     then
         echo "$MSG failed!"
@@ -140,7 +140,7 @@ TEST3()
 
 TEST4()
 {
-    MSG="1. Test double precision 1000x1000 matrix multiplication with 8 threads ...           "
+    MSG="4. Test double precision 1000x1000 matrix multiplication with 8 threads ...           "
     if [ ! -f cpubench ]
     then
         echo "$MSG failed!"
