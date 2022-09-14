@@ -94,7 +94,7 @@ CHECK5()
     else
         make clean &> cpubench.log
         make &>> cpubench.log
-        local rc=$(cat cpubench.log | grep -E "error:|warning:" | wc -l)
+        local rc=$(cat cpubench.log | grep -E "error:" | wc -l)
         if [ $rc -eq 0 ]
         then
             echo "$MSG passed!" 
