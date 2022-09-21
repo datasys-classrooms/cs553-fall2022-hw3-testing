@@ -7,47 +7,81 @@ echoerr()
 
 get_data_number()
 {
-    local_num_data=$(cat test-data.txt | wc -l)
+    precision=$1
+    local_num_data=$(cat test-data-$precision.txt | wc -l)
     echo $((1 + $RANDOM % $local_num_data))
 }
 
 get_seed_from_data()
 {
-    echo $(head -n $1 test-data.txt | tail -n 1 | cut -d ' ' -f1)
+    precision=$1
+    echo $(head -n $2 test-data-$precision.txt | tail -n 1 | cut -d ' ' -f1)
 }
 
 get_checksum_from_data()
 {
-    echo $(head -n $1 test-data.txt | tail -n 1 | cut -d ' ' -f2)
+    precision=$1
+    echo $(head -n $2 test-data-$precision.txt | tail -n 1 | cut -d ' ' -f2)
 }
+
+TEST1="1. Test single precision 100000 flops with 1 thread                           "
+TEST1_ARGS="1 flops single 1000000 1"
+TEST2="2. Test double precision 100000 flops with 1 thread                           "
+TEST2_ARGS="1 flops double 1000000 1"
+TEST3="3. Test single precision 100000 flops with 8 thread                           "
+TEST3_ARGS="1 flops single 1000000 8"
+TEST4="4. Test double precision 100000 flops with 8 thread                           "
+TEST4_ARGS="1 flops double 1000000 8"
+TEST5="5. Test single precision 2048x2048 matrix multiplication with 1 thread          "
+TEST5_ARGS="1 matrix single 2048 1"
+TEST6="6. Test double precision 2048x2048 matrix multiplication with 1 thread          "
+TEST6_ARGS="1 matrix double 2048 1"
+TEST7="7. Test single precision 2048x2048 matrix multiplication with 8 threads         "
+TEST7_ARGS="1 matrix single 2048 8"
+TEST8="8. Test double precision 2048x2048 matrix multiplication with 8 threads         "
+TEST8_ARGS="1 matrix double 2048 8"
+
+NUM_TESTS=8
 
 STATUS=0
 
-TEST1()
+TEST()
 {
-    MSG="1. Test single precision 512x512 matrix multiplication with 1 thread ...            "
+    local testnum=$1
+    local operation=$2
+    local precision=$3
+    local size=$4
+    local threads=$5
+
     if [ ! -f cpubench ]
     then
-        echo "$MSG failed!"
+        echo "$(TEST$testnum) failed!"
         echo "*** cpubench binary is missing ***" 
         STATUS=2
     else
-        data_number=$(get_data_number)
-        seed=$(get_seed_from_data $data_number)
-        checksum=$(get_checksum_from_data $data_number)
-        ./cpubench $seed matrix single 512 1 &> cpubench.log
-        local rc=$(cat cpubench.log | tail -n 1 | grep "checksum" | cut -d ' ' -f2)
+        data_number=$(get_data_number $precision)
+        seed=$(get_seed_from_data $precision $data_number)
+        checksum=0
+        if [ "$operation" == "matrix"]
+        then
+            checksum=$(get_checksum_from_data $precision $data_number)
+        fi
+        
+        ./cpubench $seed $operation $precision $size $threads false &> cpubench.log
+        
+        local rc=$(cat cpubench.log | tail -n 1 | grep "checksum" | cut -d ' ' -f7 | cut -d '=' -f2)
         if [ "$rc" == "" ]
         then
             local rc=$(($checksum + 1))
         fi
+        
         if [ $rc -eq $checksum ]
         then
-            echo "$MSG passed!" 
+            echo "$(TEST$testnum) passed!" 
         else
-            echo "$MSG failed!"
-            echo "*** Test 1 run log ***"
-            echo "./cpubench $seed matrix single 512 1"
+            echo "$(TEST$testnum) failed!"
+            echo "*** Test $testnum run log ***"
+            echo "./cpubench $seed $operation $precision $size $threads false"
             cat cpubench.log
             echo "** Expected checksum = $checksum ***"
             STATUS=1
@@ -55,102 +89,6 @@ TEST1()
     fi
 }
 
-TEST2()
-{
-    MSG="2. Test double precision 512x512 matrix multiplication with 1 thread ...            "
-    if [ ! -f cpubench ]
-    then
-        echo "$MSG failed!"
-        echo "*** cpubench binary is missing ***" 
-        STATUS=2
-    else
-        data_number=$(get_data_number)
-        seed=$(get_seed_from_data $data_number)
-        checksum=$(get_checksum_from_data $data_number)
-        ./cpubench $seed matrix double 512 1 &> cpubench.log
-        local rc=$(cat cpubench.log | tail -n 1 | grep "checksum" | cut -d ' ' -f2)
-        if [ "$rc" == "" ]
-        then
-            local rc=$(($checksum + 1))
-        fi
-        if [ $rc -eq $checksum ]
-        then
-            echo "$MSG passed!" 
-        else
-            echo "$MSG failed!"
-            echo "*** Test 2 run log ***"
-            echo "./cpubench $seed matrix double 512 1"
-            cat cpubench.log
-            echo "*** Expected checksum = $checksum ***"
-            STATUS=1
-        fi
-    fi
-}
-
-TEST3()
-{
-    MSG="3. Test single precision 512x512 matrix multiplication with 8 threads ...           "
-    if [ ! -f cpubench ]
-    then
-        echo "$MSG failed!"
-        echo "*** cpubench binary is missing ***" 
-        STATUS=2
-    else
-        data_number=$(get_data_number)
-        seed=$(get_seed_from_data $data_number)
-        checksum=$(get_checksum_from_data $data_number)
-        ./cpubench $seed matrix single 512 8 &> cpubench.log
-        local rc=$(cat cpubench.log | tail -n 1 | grep "checksum" | cut -d ' ' -f2)
-        if [ "$rc" == "" ]
-        then
-            local rc=$(($checksum + 1))
-        fi
-        if [ $rc -eq $checksum ]
-        then
-            echo "$MSG passed!" 
-        else
-            echo "$MSG failed!"
-            echo "*** Test 3 run log ***"
-            echo "./cpubench $seed matrix single 512 8"
-            cat cpubench.log
-            echo "*** Expected checksum = $checksum ***"
-            STATUS=1
-        fi
-    fi
-}
-
-TEST4()
-{
-    MSG="4. Test double precision 512x512 matrix multiplication with 8 threads ...           "
-    if [ ! -f cpubench ]
-    then
-        echo "$MSG failed!"
-        echo "*** cpubench binary is missing ***" 
-        STATUS=2
-    else
-        data_number=$(get_data_number)
-        seed=$(get_seed_from_data $data_number)
-        checksum=$(get_checksum_from_data $data_number)
-        ./cpubench $seed matrix double 512 8 &> cpubench.log
-        local rc=$(cat cpubench.log | tail -n 1 | grep "checksum" | cut -d ' ' -f2)
-        if [ "$rc" == "" ]
-        then
-            local rc=$(($checksum + 1))
-        fi
-        if [ $rc -eq $checksum ]
-        then
-            echo "$MSG passed!" 
-        else
-            echo "$MSG failed!"
-            echo "*** Test 4 run log ***"
-            echo "./cpubench $seed matrix double 512 8"
-            cat cpubench.log
-            echo "*** Expected checksum = $checksum ***"
-            STATUS=1
-        fi
-    fi
-}
-NUM_TESTS=4
 HOW_TO_USE="HOW TO USE: bash .github/workflows/test-submission.sh [<check number> | list | all]"
 
 if [ $# -ne 1 ]
@@ -164,10 +102,10 @@ arg1=$1
 if [ "$arg1" == "list" ]
 then
     echo "List of available checks:"
-    echo "1. Test single precision 512x512 matrix multiplication with 1 thread"
-    echo "2. Test double precision 512x512 matrix multiplication with 1 thread"
-    echo "3. Test single precision 512x512 matrix multiplication with 8 threads"
-    echo "4. Test double precision 512x512 matrix multiplication with 8 threads"
+    for((i=1;i<=$NUM_TESTS;i++))
+    do
+        echo "$(TEST$i)"
+    done
     exit 0
 fi
 
@@ -175,22 +113,29 @@ if [ "$arg1" == "all" ]
 then
     for((i=1;i<=$NUM_TESTS;i++))
     do
-        TEST$i
+        cmd="TEST $(TEST$i_ARGS)"
+        eval $cmd
     done
+    
     if [ $STATUS -ne 0 ]
     then
         exit 1
     fi
+    
     exit 0
 fi
 
 if [ $arg1 -eq $arg1 ]
 then
-    TEST$arg1
+    cmd="TEST $(TEST$i_ARGS)"
+    eval $cmd
+    
     if [ $STATUS -ne 0 ]
     then
         exit 1
     fi
+
+    exit 0
 else
     echoerr "$HOW_TO_USE"
     exit 2

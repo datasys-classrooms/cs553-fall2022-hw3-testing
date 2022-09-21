@@ -9,7 +9,7 @@ STATUS=0
 
 CHECK1()
 {
-    MSG="1. Check to see if the README is updated ...          "
+    MSG="1. Check to see if the README is updated ...                  "
     if [ ! -f README.md ]
     then
         echo "$MSG failed!"
@@ -28,7 +28,7 @@ CHECK1()
 
 CHECK2()
 {
-    MSG="2. Check to see if the report is uploaded ...         "
+    MSG="2. Check to see if the report is uploaded ...                 "
     if [ ! -f hw3-report.pdf ]
     then
         echo "$MSG failed!"
@@ -47,14 +47,14 @@ CHECK2()
 
 CHECK3()
 {
-    MSG="3. Check to see if the code is uploaded ...           "
+    MSG="3. Check to see if the code is uploaded ...                   "
     if [ ! -f cpubench.c ]
     then
         echo "$MSG failed!"
         STATUS=2
     else
         local rc=$(ls -l cpubench.c | tr -s ' ' | cut -d ' ' -f5)
-        if [ $rc -ne 124 ]
+        if [ $rc -ne 9541 ]
         then
             echo "$MSG passed!" 
         else
@@ -66,14 +66,14 @@ CHECK3()
 
 CHECK4()
 {
-    MSG="4. Check to see if the makefile is not modified ...   "
-    if [ ! -f Makefile ]
+    MSG="4. Check to see if the runbench script is not modified ...    "
+    if [ ! -f runbench.sh ]
     then
         echo "$MSG failed!"
         STATUS=2
     else
         local rc=$(ls -l Makefile | tr -s ' ' | cut -d ' ' -f5)
-        if [ $rc -eq 108 ]
+        if [ $rc -eq 378 ]
         then
             echo "$MSG passed!" 
         else
@@ -85,7 +85,7 @@ CHECK4()
 
 CHECK5()
 {
-    MSG="5. Check to see if the code compiles ...              "
+    MSG="5. Check to see if the code compiles ...                      "
     if [ ! -f Makefile ]
     then
         echo "$MSG failed!"
@@ -125,7 +125,7 @@ then
     echo "1. Check to see if the README is updated"
     echo "2. Check to see if the report is uploaded"
     echo "3. Check to see if the code is uploaded"
-    echo "4. Check to see if the makefile is not modified"
+    echo "4. Check to see if the runbench script is not modified"
     echo "5. Check to see if the code compiles"
     exit 0
 fi

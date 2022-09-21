@@ -14,7 +14,8 @@ $ git clone https://github.com/datasys-classrooms/cs553-fall2022-hw3-testing.git
 
 You will need to copy the test data from the test repo to your repo:
 ```
-cp cs553-fall2022-hw3-testing/test-data.txt test-data.txt
+cp cs553-fall2022-hw3-testing/test-data-single.txt test-data-single.txt
+cp cs553-fall2022-hw3-testing/test-data-double.txt test-data-double.txt
 ```
 
 You can then run all the checks and tests by calling:
