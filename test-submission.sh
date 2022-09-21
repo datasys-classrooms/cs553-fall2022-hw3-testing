@@ -27,19 +27,19 @@ get_checksum_from_data()
 TEST1="1. Test single precision 1000 flops with 1 thread                           "
 TEST1_ARGS="1 flops single 1000 1"
 TEST2="2. Test double precision 1000 flops with 1 thread                           "
-TEST2_ARGS="1 flops double 1000 1"
+TEST2_ARGS="2 flops double 1000 1"
 TEST3="3. Test single precision 1000 flops with 8 thread                           "
-TEST3_ARGS="1 flops single 1000 8"
+TEST3_ARGS="3 flops single 1000 8"
 TEST4="4. Test double precision 1000 flops with 8 thread                           "
-TEST4_ARGS="1 flops double 1000 8"
+TEST4_ARGS="4 flops double 1000 8"
 TEST5="5. Test single precision 256x256 matrix multiplication with 1 thread          "
-TEST5_ARGS="1 matrix single 256 1"
+TEST5_ARGS="5 matrix single 256 1"
 TEST6="6. Test double precision 256x256 matrix multiplication with 1 thread          "
-TEST6_ARGS="1 matrix double 256 1"
+TEST6_ARGS="6 matrix double 256 1"
 TEST7="7. Test single precision 256x256 matrix multiplication with 8 threads         "
-TEST7_ARGS="1 matrix single 256 8"
+TEST7_ARGS="7 matrix single 256 8"
 TEST8="8. Test double precision 256x256 matrix multiplication with 8 threads         "
-TEST8_ARGS="1 matrix double 256 8"
+TEST8_ARGS="8 matrix double 256 8"
 
 NUM_TESTS=8
 
@@ -86,7 +86,7 @@ TEST()
             echo "*** Test $testnum run log ***"
             echo "./cpubench $seed $operation $precision $size $threads false"
             cat cpubench.log
-            echo "** Expected checksum = $checksum ***"
+            echo "*** Expected checksum = $checksum ***"
             STATUS=1
         fi
     fi
