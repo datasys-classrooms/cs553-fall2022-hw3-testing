@@ -55,14 +55,15 @@ TEST()
 
     if [ ! -f cpubench ]
     then
-        echo "$(TEST$testnum) failed!"
+        local var="TEST$testnum"
+        echo "${!var} failed!"
         echo "*** cpubench binary is missing ***" 
         STATUS=2
     else
         data_number=$(get_data_number $precision)
         seed=$(get_seed_from_data $precision $data_number)
         checksum=0
-        if [ "$operation" == "matrix"]
+        if [ "$operation" == "matrix" ]
         then
             checksum=$(get_checksum_from_data $precision $data_number)
         fi
@@ -77,9 +78,11 @@ TEST()
         
         if [ $rc -eq $checksum ]
         then
-            echo "$(TEST$testnum) passed!" 
+            local var="TEST$testnum"
+            echo "${!var} passed!" 
         else
-            echo "$(TEST$testnum) failed!"
+            local var="TEST$testnum"
+            echo "${!var} failed!"
             echo "*** Test $testnum run log ***"
             echo "./cpubench $seed $operation $precision $size $threads false"
             cat cpubench.log
@@ -104,7 +107,8 @@ then
     echo "List of available checks:"
     for((i=1;i<=$NUM_TESTS;i++))
     do
-        echo "${TEST$i}"
+        var="TEST$i"
+        echo "${!var}"
     done
     exit 0
 fi
@@ -113,7 +117,8 @@ if [ "$arg1" == "all" ]
 then
     for((i=1;i<=$NUM_TESTS;i++))
     do
-        cmd="TEST ${TEST$i_ARGS}"
+        var="TEST${i}_ARGS"
+        cmd="TEST ${!var}"
         eval $cmd
     done
     
@@ -127,7 +132,8 @@ fi
 
 if [ $arg1 -eq $arg1 ]
 then
-    cmd="TEST ${TEST$i_ARGS}"
+    var="TEST${i}_ARGS"
+    cmd="TEST ${!var}"
     eval $cmd
     
     if [ $STATUS -ne 0 ]
