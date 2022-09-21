@@ -104,7 +104,7 @@ then
     echo "List of available checks:"
     for((i=1;i<=$NUM_TESTS;i++))
     do
-        echo "$(TEST$i)"
+        echo "${TEST$i}"
     done
     exit 0
 fi
@@ -113,7 +113,7 @@ if [ "$arg1" == "all" ]
 then
     for((i=1;i<=$NUM_TESTS;i++))
     do
-        cmd="TEST $(TEST$i_ARGS)"
+        cmd="TEST ${TEST$i_ARGS}"
         eval $cmd
     done
     
@@ -127,7 +127,7 @@ fi
 
 if [ $arg1 -eq $arg1 ]
 then
-    cmd="TEST $(TEST$i_ARGS)"
+    cmd="TEST ${TEST$i_ARGS}"
     eval $cmd
     
     if [ $STATUS -ne 0 ]
