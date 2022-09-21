@@ -58,7 +58,7 @@ TEST()
         local var="TEST$testnum"
         local msg1="${!var} failed!"
         local msg2= "*** cpubench binary is missing ***"
-        echo -e "$msg1\n$msg2" 
+        echo -e "$msg1\n$msg2\n" 
         STATUS=2
     else
         data_number=$(get_data_number $precision)
@@ -85,7 +85,7 @@ TEST()
             local msg3="./cpubench $seed $operation $precision $size $threads false"
             local msg4=$(cat cpubench.log)
             local msg5="*** Run successful ***"
-            echo -e "$msg1\n$msg2\n$msg3\n$msg4\n$msg5" 
+            echo -e "$msg1\n$msg2\n$msg3\n$msg4\n$msg5\n" 
         else
             local var="TEST$testnum"
             local msg1="${!var} failed!"
@@ -93,7 +93,7 @@ TEST()
             local msg3="./cpubench $seed $operation $precision $size $threads false"
             local msg4=$(cat cpubench.log)
             local msg5="*** Expected checksum = $checksum ***"
-            echo -e "$msg1\n$msg2\n$msg3\n$msg4\n$msg5"
+            echo -e "$msg1\n$msg2\n$msg3\n$msg4\n$msg5\n"
             STATUS=1
         fi
     fi
