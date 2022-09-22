@@ -54,7 +54,7 @@ CHECK3()
         STATUS=2
     else
         local rc=$(ls -l cpubench.c | tr -s ' ' | cut -d ' ' -f5)
-        if [ $rc -ne 9541 ]
+        if [ $rc -ne 10799 ]
         then
             echo "$MSG passed!" 
         else
@@ -73,7 +73,7 @@ CHECK4()
         STATUS=2
     else
         local rc=$(ls -l Makefile | tr -s ' ' | cut -d ' ' -f5)
-        if [ $rc -eq 378 ]
+        if [ $rc -eq 461 ]
         then
             echo "$MSG passed!" 
         else
