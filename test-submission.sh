@@ -32,14 +32,14 @@ TEST3="3. Test single precision 2000 flops with 8 thread                        
 TEST3_ARGS="3 flops single 2000 8"
 TEST4="4. Test double precision 2000 flops with 8 thread                           "
 TEST4_ARGS="4 flops double 2000 8"
-TEST5="5. Test single precision 512x512 matrix multiplication with 1 thread          "
-TEST5_ARGS="5 matrix single 512 1"
-TEST6="6. Test double precision 512x512 matrix multiplication with 1 thread          "
-TEST6_ARGS="6 matrix double 512 1"
-TEST7="7. Test single precision 512x512 matrix multiplication with 8 threads         "
-TEST7_ARGS="7 matrix single 512 8"
-TEST8="8. Test double precision 512x512 matrix multiplication with 8 threads         "
-TEST8_ARGS="8 matrix double 512 8"
+TEST5="5. Test single precision 500x50 matrix multiplication with 1 thread          "
+TEST5_ARGS="5 matrix single 500 1"
+TEST6="6. Test double precision 500x500 matrix multiplication with 1 thread          "
+TEST6_ARGS="6 matrix double 500 1"
+TEST7="7. Test single precision 500x500 matrix multiplication with 8 threads         "
+TEST7_ARGS="7 matrix single 500 8"
+TEST8="8. Test double precision 500x500 matrix multiplication with 8 threads         "
+TEST8_ARGS="8 matrix double 500 8"
 
 NUM_TESTS=8
 
