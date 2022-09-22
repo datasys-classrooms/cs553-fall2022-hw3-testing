@@ -72,7 +72,7 @@ CHECK4()
         echo "$MSG failed!"
         STATUS=2
     else
-        local rc=$(ls -l Makefile | tr -s ' ' | cut -d ' ' -f5)
+        local rc=$(ls -l runbench.sh | tr -s ' ' | cut -d ' ' -f5)
         if [ $rc -eq 461 ]
         then
             echo "$MSG passed!" 
