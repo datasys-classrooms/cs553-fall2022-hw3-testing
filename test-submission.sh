@@ -69,7 +69,8 @@ TEST()
             checksum=$(get_checksum_from_data $precision $data_number)
         fi
         
-        ./cpubench $seed $operation $precision $size $threads false &> cpubench.log
+        cmd="./cpubench $seed $operation $precision $size $threads false"
+        eval $cmd &> cpubench.log
         
         local rc=$(cat cpubench.log | tail -n 1 | grep "checksum" | cut -d ' ' -f8 | cut -d '=' -f2)
         if [ "$rc" == "" ]
