@@ -9,7 +9,7 @@ STATUS=0
 
 CHECK1()
 {
-    MSG="1. Check to see if the README is updated ...                                    "
+    MSG="1. Check to see if the README is updated ...                                  "
     if [ ! -f README.md ]
     then
         echo "$MSG failed!"
@@ -28,7 +28,7 @@ CHECK1()
 
 CHECK2()
 {
-    MSG="2. Check to see if the report is uploaded ...                                   "
+    MSG="2. Check to see if the report is uploaded ...                                 "
     if [ ! -f hw3-report.pdf ]
     then
         echo "$MSG failed!"
@@ -47,7 +47,7 @@ CHECK2()
 
 CHECK3()
 {
-    MSG="3. Check to see if the code is uploaded ...                                     "
+    MSG="3. Check to see if the code is uploaded ...                                   "
     if [ ! -f cpubench.c ]
     then
         echo "$MSG failed!"
@@ -66,7 +66,7 @@ CHECK3()
 
 CHECK4()
 {
-    MSG="4. Check to see if the runbench script is not modified ...                      "
+    MSG="4. Check to see if the runbench script is not modified ...                    "
     if [ ! -f runbench.sh ]
     then
         echo "$MSG failed!"
@@ -85,7 +85,7 @@ CHECK4()
 
 CHECK5()
 {
-    MSG="5. Check to see if the code compiles ...                                        "
+    MSG="5. Check to see if the code compiles ...                                      "
     if [ ! -f Makefile ]
     then
         echo "$MSG failed!"
