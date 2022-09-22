@@ -24,24 +24,32 @@ get_checksum_from_data()
     echo $(head -n $2 test-data-$precision.txt | tail -n 1 | cut -d ' ' -f2)
 }
 
-TEST1="1. Test single precision 2000 flops with 1 thread                           "
+TEST1="1. Test single precision 2000 flops with 1 thread                             "
 TEST1_ARGS="1 flops single 2000 1"
-TEST2="2. Test double precision 2000 flops with 1 thread                           "
-TEST2_ARGS="2 flops double 2000 1"
-TEST3="3. Test single precision 2000 flops with 8 thread                           "
-TEST3_ARGS="3 flops single 2000 8"
-TEST4="4. Test double precision 2000 flops with 8 thread                           "
-TEST4_ARGS="4 flops double 2000 8"
-TEST5="5. Test single precision 500x500 matrix multiplication with 1 thread          "
-TEST5_ARGS="5 matrix single 500 1"
-TEST6="6. Test double precision 500x500 matrix multiplication with 1 thread          "
-TEST6_ARGS="6 matrix double 500 1"
-TEST7="7. Test single precision 500x500 matrix multiplication with 8 threads         "
-TEST7_ARGS="7 matrix single 500 8"
-TEST8="8. Test double precision 500x500 matrix multiplication with 8 threads         "
-TEST8_ARGS="8 matrix double 500 8"
+TEST2="2. Test single precision 2000 flops with 2 thread                             "
+TEST2_ARGS="2 flops single 2000 2"
+TEST3="3. Test single precision 2000 flops with 4 thread                             "
+TEST3_ARGS="3 flops single 2000 4"
+TEST4="4. Test single precision 2000 flops with 8 thread                             "
+TEST4_ARGS="4 flops single 2000 8"
+TEST5="5. Test double precision 2000 flops with 1 thread                             "
+TEST5_ARGS="5 flops double 2000 1"
+TEST6="6. Test double precision 2000 flops with 2 thread                             "
+TEST6_ARGS="6 flops double 2000 2"
+TEST7="7. Test double precision 2000 flops with 4 thread                             "
+TEST7_ARGS="7 flops double 2000 4"
+TEST8="8. Test double precision 2000 flops with 8 thread                             "
+TEST8_ARGS="8 flops double 2000 8"
+TEST9="9. Test double precision 2000x2000 matrix multiplication with 1 thread        "
+TEST9_ARGS="9 matrix double 2000 1"
+TEST10="10. Test double precision 2000x2000 matrix multiplication with 2 thread      "
+TEST10_ARGS="10 matrix double 2000 2"
+TEST11="11. Test double precision 2000x2000 matrix multiplication with 4 threads     "
+TEST11_ARGS="11 matrix double 2000 4"
+TEST12="12. Test double precision 2000x2000 matrix multiplication with 8 threads     "
+TEST12_ARGS="12 matrix double 2000 8"
 
-NUM_TESTS=8
+NUM_TESTS=12
 
 STATUS=0
 
