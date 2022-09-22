@@ -71,7 +71,7 @@ TEST()
         
         ./cpubench $seed $operation $precision $size $threads false &> cpubench.log
         
-        local rc=$(cat cpubench.log | tail -n 1 | grep "checksum" | cut -d ' ' -f7 | cut -d '=' -f2)
+        local rc=$(cat cpubench.log | tail -n 1 | grep "checksum" | cut -d ' ' -f8 | cut -d '=' -f2)
         if [ "$rc" == "" ]
         then
             local rc=$(($checksum + 1))
