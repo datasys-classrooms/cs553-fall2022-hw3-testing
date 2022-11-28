@@ -92,7 +92,8 @@ CHECK5()
         echo "*** Makefile is missing ***"
         STATUS=2
     else
-        make clean &> cpubench.log
+        echo -n "" > cpubench.log
+        make clean &>> cpubench.log
         make &>> cpubench.log
         local rc=$(cat cpubench.log | grep -E "error:" | wc -l)
         if [ $rc -eq 0 ]
