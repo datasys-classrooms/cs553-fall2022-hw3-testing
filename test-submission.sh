@@ -84,6 +84,8 @@ TEST()
         if [ "$rc" == "" ]
         then
             local rc=$(($checksum + 1))
+        else
+            local rc=$checksum
         fi
         
         if [ $rc -eq $checksum ]
